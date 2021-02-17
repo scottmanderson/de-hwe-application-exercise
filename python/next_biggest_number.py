@@ -22,16 +22,18 @@ def next_biggest_number(num):
         i -= 1
 
     # Find smallest number to the right of index i, that is also greater than the lower digit detected to the left of i
-    lowest_found_right_index = i
+    best_eligible_swap = i
     for j in range(i + 1, len(digit_list)):
-        if digit_list[lowest_found_right_index] > digit_list[j] > digit_list[i-1]:
-            lowest_found_right_index = j
+        if digit_list[best_eligible_swap] > digit_list[j] > digit_list[i-1]:
+            best_eligible_swap = j
 
-    digit_list[lowest_found_right_index], digit_list[i-1] = digit_list[i-1], digit_list[lowest_found_right_index]
+    # Swap
+    digit_list[best_eligible_swap], digit_list[i-1] = digit_list[i-1], digit_list[best_eligible_swap]
 
+    # sorting the digits from i onward, as otherwise we will not necessarily return the lowest possible number
     digit_list = digit_list[:i] + sorted(digit_list[i:])
+    
     digit_list = [str(x) for x in digit_list]
-
     return int("".join(digit_list))
 
 
